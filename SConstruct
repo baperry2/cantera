@@ -1431,6 +1431,7 @@ elif env['python_package'] == 'n':
 
 env['install_python_action'] = ''
 env['python_module_loc'] = ''
+env["ct_pyscriptdir"] = "<not installed>"
 
 if env['python_package'] != 'none':
     # Test to see if we can import numpy and Cython
@@ -1994,11 +1995,11 @@ def postInstallMessage(target, source, env):
 
         File locations:
 
-          applications                {ct_bindir!s}
           library files               {ct_libdir!s}
           C++ headers                 {ct_incroot!s}
           samples                     {ct_sampledir!s}
-          data files                  {ct_datadir!s}""".format(**env_dict))
+          data files                  {ct_datadir!s}
+          input file converters       {ct_pyscriptdir!s}""".format(**env_dict))
 
     if env['sphinx_docs'] or env['doxygen_docs']:
         install_message += indent(textwrap.dedent("""
@@ -2007,7 +2008,7 @@ def postInstallMessage(target, source, env):
     if env['python_package'] == 'full':
         env['python_example_loc'] = pjoin(env['python_module_loc'], 'cantera', 'examples')
         install_message += indent(textwrap.dedent("""
-            Python package (cantera)    {python_module_loc!s}
+            Python package              {python_module_loc!s}
             Python samples              {python_example_loc!s}""".format(**env_dict)), '  ')
     elif env['python_package'] == 'minimal':
         install_message += indent(textwrap.dedent("""
